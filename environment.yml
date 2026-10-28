@@ -1,0 +1,11 @@
+
+name: movie-book-recommender
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy>=2.0
+  - pandas>=2.0
+  - matplotlib>=3.8
+  - jupyter>=1.0
+  - pip
