@@ -3,7 +3,7 @@ name: movie-book-recommender
 channels:
   - conda-forge
 dependencies:
-  - python=3.11
+  - python=3.14
   - numpy>=2.0
   - pandas>=2.0
   - matplotlib>=3.8
