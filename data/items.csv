@@ -1,0 +1,9 @@
+item_id,title,type,genre,release_year
+m101,Inception,movie,Sci-Fi,2010
+m102,Interstellar,movie,Sci-Fi,2014
+m103,The Dark Knight,movie,Action,2008
+m104,Pulp Fiction,movie,Crime,1994
+b201,1984,book,Dystopian,1949
+b202,Brave New World,book,Dystopian,1932
+b203,To Kill a Mockingbird,book,Classic,1960
+b204,The Great Gatsby,book,Classic,1925
