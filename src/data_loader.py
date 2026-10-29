@@ -1,79 +1,84 @@
-import os
-import numpy as np
 import pandas as pd
+from pathlib import Path
 
+# Create output folder
+output_dir = Path("data")
+output_dir.mkdir(exist_ok=True) 
 
-def load_datasets(data_dir="data"):
-    ratings_path = os.path.join(data_dir, "ratings.csv")
-    items_path = os.path.join(data_dir, "items.csv")
+# Sample data (fictional)
+data = {
+    "user_id": [
+        1, 1, 1, 2, 2, 2, 3, 3, 3, 4,
+        4, 4, 5, 5, 5, 6, 6, 6, 7, 7
+    ],
+    "item_id": [
+        101, 102, 103, 101, 104, 105, 102, 103, 106, 101,
+        105, 107, 102, 104, 106, 103, 105, 107, 101, 106
+    ],
+    "item_type": [
+        "movie", "book", "movie", "book", "movie",
+        "book", "movie", "book", "movie", "movie",
+        "book", "movie", "book", "movie", "book",
+        "movie", "book", "movie", "book", "movie"
+    ],
+    "rating": [
+        5, 4, 3, 4, 5, 3, 4, 5, 2, 3,
+        4, 5, 4, 2, 5, 5, 3, 4, 4, 5
+    ]
+}
 
-    ratings = pd.read_csv(ratings_path)
-    items = pd.read_csv(items_path)
-    return ratings, items
+# Create DataFrame
+df = pd.DataFrame(data)
 
+# Save raw data
+df.to_csv(output_dir / "raw_data.csv", index=False)
+print("Initial rows:", len(df))
 
-def create_user_item_matrix(ratings):
-    # دستور پیاده‌سازی ماتریس پیوت تدریس‌شده در اسلاید جلسه ۳
-    matrix = ratings.pivot(index="user_id", columns="item_id", values="rating")
-    return matrix
+# 1. Remove rows with missing essential values
+df = df.dropna(subset=["user_id", "item_id", "rating"])
 
+# 2. Convert ratings to numeric values
+df["rating"] = pd.to_numeric(df["rating"], errors="coerce")
+df = df.dropna(subset=["rating"])
 
-def split_train_test(ratings, test_ratio=0.2, random_seed=42):
-    rng = np.random.default_rng(random_seed)
-    shuffled_indices = rng.permutation(len(ratings))
-    test_size = int(len(ratings) * test_ratio)
+# Keep ratings between 1 and 5
+df = df[(df["rating"] >= 1) & (df["rating"] <= 5)]
 
-    test_idx = shuffled_indices[:test_size]
-    train_idx = shuffled_indices[test_size:]
+# 3. Remove duplicate user-item pairs
+df = df.drop_duplicates(
+    subset=["user_id", "item_id"],
+    keep="first"
+)
 
-    train_df = ratings.iloc[train_idx].copy().reset_index(drop=True)
-    test_df = ratings.iloc[test_idx].copy().reset_index(drop=True)
+# 4. Sort and reset row indices
+df = df.sort_values(
+    by=["user_id", "item_id"]
+).reset_index(drop=True)
 
-    return train_df, test_df
+# Save cleaned data
+df.to_csv(output_dir / "cleaned_data.csv", index=False)
 
+print("Rows after cleaning:", len(df))
 
-def compute_statistics(ratings, items, matrix):
-    num_users = ratings["user_id"].nunique()
-    num_items = items["item_id"].nunique()
-    num_ratings = len(ratings)
-    total_possible = num_users * num_items
-    sparsity = (1.0 - (num_ratings / total_possible)) * 100
+# 5. Split data into training and testing sets
+train_df = df.sample(frac=0.8, random_state=42)
+test_df = df.drop(train_df.index)
 
-    return {
-        "کاربران": num_users,
-        "اقلام": num_items,
-        "تعداد کل امتیازها": num_ratings,
-        "کمترین امتیاز": ratings["rating"].min(),
-        "بیشترین امتیاز": ratings["rating"].max(),
-        "میانگین امتیاز": round(ratings["rating"].mean(), 2),
-        "درصد پراکندگی (Sparsity)": f"{round(sparsity, 2)}%",
-    }
+# Save train and test files
+train_df.to_csv(output_dir / "train.csv", index=False)
+test_df.to_csv(output_dir / "test.csv", index=False)
 
+# 6. Validate the split
+train_pairs = set(
+    map(tuple, train_df[["user_id", "item_id"]].values)
+)
+test_pairs = set(
+    map(tuple, test_df[["user_id", "item_id"]].values)
+)
 
-def main():
-    print("=== اجرای پیش‌پردازش داده‌های گام دوم ===")
-    ratings, items = load_datasets()
+assert train_pairs.isdisjoint(test_pairs)
 
-    matrix = create_user_item_matrix(ratings)
-    print("\nماتریس کاربر-آیتم:")
-    print(matrix.fillna(0))
-
-    train_df, test_df = split_train_test(ratings, test_ratio=0.2)
-    print(f"\nتعداد داده‌های آموزش: {len(train_df)}")
-    print(f"تعداد داده‌های آزمون: {len(test_df)}")
-
-    os.makedirs("data/processed", exist_ok=True)
-    train_df.to_csv("data/processed/train.csv", index=False)
-    test_df.to_csv("data/processed/test.csv", index=False)
-    matrix.to_csv("data/processed/user_item_matrix.csv")
-
-    stats = compute_statistics(ratings, items, matrix)
-    print("\nآمار کلیدی:")
-    for k, v in stats.items():
-        print(f" - {k}: {v}")
-
-    print("\n[OK] تمام فایل‌ها در پوشه data/processed ذخیره شدند.")
-
-
-if __name__ == "__main__":
-    main()
+print("Training rows:", len(train_df))
+print("Testing rows:", len(test_df))
+print("Data preparation completed successfully!")
+print("Output files are saved in the data folder.")
