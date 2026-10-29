@@ -2,12 +2,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-# Load data created by data_loader.py
+
 data_dir = Path("data")
 train_path = data_dir / "train.csv"
 test_path = data_dir / "test.csv"
 
-# Verify files exist, otherwise run with cleaned_data
 if not train_path.exists():
     cleaned_path = data_dir / "cleaned_data.csv"
     if cleaned_path.exists():
@@ -26,14 +25,14 @@ print("=" * 55)
 print("📊 گزارش بخش داده و ارزیابی (تسک: ابراهیم یدالهی)")
 print("=" * 55)
 
-# 1. Validation & Metrics
+
 n_train = len(train_df)
 n_test = len(test_df)
 n_users = all_df["user_id"].nunique()
 n_items = all_df["item_id"].nunique()
 total_ratings = len(all_df)
 
-# Sparsity calculation
+
 total_possible = n_users * n_items
 sparsity = (1.0 - (total_ratings / total_possible)) * 100
 
@@ -43,19 +42,19 @@ print(f"تعداد کاربران یکتا: {n_users}")
 print(f"تعداد آیتم‌های یکتا: {n_items}")
 print(f"نرخ عدم تراکم ماتریس (Sparsity Rate): {sparsity:.2f}%")
 
-# 2. Check Data Leakage
+
 train_set = set(zip(train_df["user_id"], train_df["item_id"]))
 test_set = set(zip(test_df["user_id"], test_df["item_id"]))
 leakage = train_set.intersection(test_set)
 print(f"تداخل داده‌ها بین آموزش و آزمون (Data Leakage): {len(leakage)} مورد")
 assert len(leakage) == 0, "خطا: هم‌پوشانی نامعتبر بین Train و Test!"
 
-# 3. Item Type Balance
+
 print("\nتوزیع نوع آیتم‌ها:")
 for itype, count in all_df["item_type"].value_counts().items():
     print(f" - {itype}: {count} تعامل")
 
-# 4. Rating Distribution Plot
+
 counts = all_df["rating"].value_counts().sort_index()
 plt.figure(figsize=(6, 4))
 plt.bar(counts.index.astype(str), counts.values, color="#4f46e5", edgecolor="#1e1b4b")
