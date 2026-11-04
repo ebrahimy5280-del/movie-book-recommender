@@ -357,7 +357,6 @@ jupyter notebook eda.ipynb
 ## 👤 شناسنامه پروژه و توسعه‌دهنده
 
 * **تهیه‌کننده: ابراهیم یدالهی**
-* **پروفایل گیت‌هاب:** [@ebrahimy5280-del](https://github.com/ebrahimy5280-del)
 * **ریپازیتوری اصلی:** [movie-book-recommender](https://github.com/ebrahimy5280-del/movie-book-recommender)
 
 </div>
