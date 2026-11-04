@@ -4,12 +4,12 @@
 
 **تهیه‌کننده: ابراهیم یدالهی**  
 **درس:** آزمایشگاه هوش مصنوعی  
-**مخزن اصلی گیت‌هاب:** [movie-book-recommender](https://github.com/ebrahimy5280-del/movie-book-recommender)[cite: 1]
+**مخزن اصلی گیت‌هاب:** [movie-book-recommender](https://github.com/ebrahimy5280-del/movie-book-recommender)
 
 ---
 
 > 💡 **چکیده اجرایی و معماری کلان پروژه:**  
-> سامانه حاضر یک سیستم پیشنهاددهنده هوشمند چندحوزه‌ای (Cross-Domain Recommender System) است که با هدف مدل‌سازی، پیش‌بینی و پالایش علایق کاربران در دو رسانه مکمل فیلم و کتاب بر مبنای اصول مهندسی نرم‌افزار، چارچوب‌های عامل هوشمند و یادگیری ماشین طراحی و توسعه داده شده است[cite: 1]. ساختار این مخزن به‌گونه‌ای طراحی شده که تفکیک کاملی میان تکالیف هفتگی آزمایشگاه و فازهای سه‌گانه توسعه سامانه برقرار سازد و تمامی مراحل از مدل‌سازی مسئله در قالب فرمولاسیون ریاضی تا ممیزی کیفیت داده و مصورسازی آماری را با بالاترین استانداردهای آکادمیک و فنی ارائه دهد[cite: 1].
+> سامانه حاضر یک سیستم پیشنهاددهنده هوشمند چندحوزه‌ای (Cross-Domain Recommender System) است که با هدف مدل‌سازی، پیش‌بینی و پالایش علایق کاربران در دو رسانه مکمل فیلم و کتاب بر مبنای اصول مهندسی نرم‌افزار، چارچوب‌های عامل هوشمند و یادگیری ماشین طراحی و توسعه داده شده است. ساختار این مخزن به‌گونه‌ای طراحی شده که تفکیک کاملی میان تکالیف هفتگی آزمایشگاه و فازهای سه‌گانه توسعه سامانه برقرار سازد و تمامی مراحل از مدل‌سازی مسئله در قالب فرمولاسیون ریاضی تا ممیزی کیفیت داده و مصورسازی آماری را با بالاترین استانداردهای آکادمیک و فنی ارائه دهد.
 
 ---
 
@@ -82,19 +82,19 @@ movie-book-recommender/
       <td style="text-align: right;"><b>گام اول (Step-1)</b></td>
       <td style="text-align: right;">فرمولاسیون مسئله در چارچوب PEAS، بررسی مشخصه‌های محیطی، پیاده‌سازی عامل‌های تصادفی، واکنشی و مبتنی بر مدل</td>
       <td style="text-align: right;" dir="ltr"><a href="https://github.com/ebrahimy5280-del/movie-book-recommender/blob/main/movie_book_recommender_project/Step-1/recommender_agent.py"><code>recommender_agent.py</code></a>, <a href="https://github.com/ebrahimy5280-del/movie-book-recommender/blob/main/movie_book_recommender_project/Step-1/notes/risks.md"><code>risks.md</code></a></td>
-      <td style="text-align: right;">✔️ تکمیل و مستندسازی شد[cite: 1]</td>
+      <td style="text-align: right;">✔️ تکمیل و مستندسازی شد</td>
     </tr>
     <tr>
       <td style="text-align: right;"><b>گام دوم (Step-2)</b></td>
       <td style="text-align: right;">جمع‌آوری داده‌ها، جداسازی قطعی ۸۰/۲۰، سنجش نرخ تخلخل (Sparsity)، اثبات ریاضی عدم نشت داده (Data Leakage) و تدوین سند طراحی معماری</td>
       <td style="text-align: right;" dir="ltr"><a href="https://github.com/ebrahimy5280-del/movie-book-recommender/blob/main/movie_book_recommender_project/Step-2/src/data_loader.py"><code>data_loader.py</code></a>, <a href="https://github.com/ebrahimy5280-del/movie-book-recommender/blob/main/movie_book_recommender_project/Step-2/src/evaluation.py"><code>evaluation.py</code></a>, <a href="https://github.com/ebrahimy5280-del/movie-book-recommender/blob/main/movie_book_recommender_project/Step-2/DESIGN.md"><code>DESIGN.md</code></a></td>
-      <td style="text-align: right;">✔️ تکمیل و مستندسازی شد[cite: 1]</td>
+      <td style="text-align: right;">✔️ تکمیل و مستندسازی شد</td>
     </tr>
     <tr>
       <td style="text-align: right;"><b>گام سوم (Step-3)</b></td>
       <td style="text-align: right;">ممیزی کیفیت داده‌ها، استخراج آماره‌های توصیفی برداری، مقایسه رفتار رسانه‌ها و تولید بوم گرافیکی ۴ نمودار تحلیلی با کیفیت ۳۰۰ DPI</td>
       <td style="text-align: right;" dir="ltr"><a href="https://github.com/ebrahimy5280-del/movie-book-recommender/blob/main/movie_book_recommender_project/Step-3/src/eda.ipynb"><code>eda.ipynb</code></a>, <a href="https://github.com/ebrahimy5280-del/movie-book-recommender/blob/main/movie_book_recommender_project/Step-3/data/eda_analysis.png"><code>eda_analysis.png</code></a>, <a href="https://github.com/ebrahimy5280-del/movie-book-recommender/blob/main/movie_book_recommender_project/Step-3/README.md"><code>README.md</code></a></td>
-      <td style="text-align: right;">✔️ تکمیل و مستندسازی شد[cite: 1, 11]</td>
+      <td style="text-align: right;">✔️ تکمیل و مستندسازی شد</td>
     </tr>
   </tbody>
 </table>
@@ -103,7 +103,7 @@ movie-book-recommender/
 
 ## 🧩 فاز اول: فرمولاسیون مسئله، تحلیل محیط و شبیه‌سازی عامل‌های هوشمند (Step-1)
 
-در گام نخست، سیستم پیشنهاددهنده به عنوان یک عامل هوشمند در تعامل با کاربر و محیط محتوا فرمول‌بندی شد[cite: 1]:
+در گام نخست، سیستم پیشنهاددهنده به عنوان یک عامل هوشمند در تعامل با کاربر و محیط محتوا فرمول‌بندی شد:
 
 ### ۱. تحلیل چارچوب PEAS
 * **معیار عملکرد (Performance Measure):** بیشینه‌سازی تناسب پیشنهادها با سلایق واقعی، افزایش نرخ تبدیل و نرخ رضایت (امتیازهای ۴ و ۵) و کمینه‌سازی خطای پیش‌بینی.
@@ -128,7 +128,7 @@ movie-book-recommender/
 
 ## 📊 فاز دوم: خط لوله داده‌ها، ممیزی، معماری سامانه و ارزیابی آفلاین (Step-2)
 
-گام دوم زیرساخت فنی داده‌محور پروژه را پیاده‌سازی کرد[cite: 1]:
+گام دوم زیرساخت فنی داده‌محور پروژه را پیاده‌سازی کرد:
 
 ### ۱. ماژول خط لوله داده‌ها ([`data_loader.py`](https://github.com/ebrahimy5280-del/movie-book-recommender/blob/main/movie_book_recommender_project/Step-2/src/data_loader.py))
 این اسکریپت وظیفه دریافت، پاک‌سازی، یکسان‌سازی تایپ‌ها و تقسیم قطعی داده‌ها به نسبت ۸۰٪ آموزش ([`train.csv`](https://github.com/ebrahimy5280-del/movie-book-recommender/blob/main/movie_book_recommender_project/Step-2/data/train.csv)) و ۲۰٪ آزمون ([`test.csv`](https://github.com/ebrahimy5280-del/movie-book-recommender/blob/main/movie_book_recommender_project/Step-2/data/test.csv)) را بدون هم‌پوشانی بر عهده دارد.
@@ -146,11 +146,11 @@ movie-book-recommender/
 
 ## 📈 فاز سوم: تحلیل اکتشافی جامع داده‌ها (EDA) و مصورسازی آماری (Step-3)
 
-در گام سوم، کلیه آزمون‌های سلامت داده و آماره‌های توصیفی به همراه گرید گرافیکی چهارگانه در نوت‌بوک [`eda.ipynb`](https://github.com/ebrahimy5280-del/movie-book-recommender/blob/main/movie_book_recommender_project/Step-3/src/eda.ipynb) پیاده‌سازی و اجرا گردید[cite: 1, 11]:
+در گام سوم، کلیه آزمون‌های سلامت داده و آماره‌های توصیفی به همراه گرید گرافیکی چهارگانه در نوت‌بوک [`eda.ipynb`](https://github.com/ebrahimy5280-del/movie-book-recommender/blob/main/movie_book_recommender_project/Step-3/src/eda.ipynb) پیاده‌سازی و اجرا گردید:
 
 <div align="center">
 
-![چهار نمودار اصلی تحلیل اکتشافی داده‌ها](https://raw.githubusercontent.com/ebrahimy5280-del/movie-book-recommender/main/movie_book_recommender_project/Step-3/data/eda_analysis.png)[cite: 11]
+![چهار نمودار اصلی تحلیل اکتشافی داده‌ها](https://raw.githubusercontent.com/ebrahimy5280-del/movie-book-recommender/main/movie_book_recommender_project/Step-3/data/eda_analysis.png)
 
 </div>
 
@@ -169,29 +169,29 @@ movie-book-recommender/
       <td style="text-align: right;"><b>۱</b></td>
       <td style="text-align: right;"><b>توزیع نمرات (Rating Distribution)</b></td>
       <td style="text-align: right;">Bar Plot / Histogram</td>
-      <td style="text-align: right;">۷۰.۸٪ نمرات در بازه ۴ و ۵[cite: 11]</td>
+      <td style="text-align: right;">۷۰.۸٪ نمرات در بازه ۴ و ۵</td>
       <td style="text-align: right;">وجود چولگی به راست و سوگیری مثبت (Positivity Bias)؛ نشان‌دهنده لزوم اجرای نرمال‌سازی انحراف از میانگین (Mean-Centering) در گام مدل‌سازی مشارکتی.</td>
     </tr>
     <tr>
       <td style="text-align: right;"><b>۲</b></td>
       <td style="text-align: right;"><b>حجم تعاملات رسانه‌ها (Volume by Type)</b></td>
       <td style="text-align: right;">Categorical Bar Plot</td>
-      <td style="text-align: right;">۱۳ امتیاز فیلم در برابر ۱۱ امتیاز کتاب[cite: 11]</td>
-      <td style="text-align: right;">توازن بسیار مطلوب بین دو رسانه؛ تضمین اینکه مدل آموزش‌دیده نهایی دچار غلبه نامتقارن یک رسانه بر دیگری (Media Bias) نخواهد شد[cite: 11].</td>
+      <td style="text-align: right;">۱۳ امتیاز فیلم در برابر ۱۱ امتیاز کتاب</td>
+      <td style="text-align: right;">توازن بسیار مطلوب بین دو رسانه؛ تضمین اینکه مدل آموزش‌دیده نهایی دچار غلبه نامتقارن یک رسانه بر دیگری (Media Bias) نخواهد شد.</td>
     </tr>
     <tr>
       <td style="text-align: right;"><b>۳</b></td>
       <td style="text-align: right;"><b>نمودار جعبه‌ای نمرات (Boxplot Distribution)</b></td>
       <td style="text-align: right;">Box & Whisker Plot</td>
-      <td style="text-align: right;">میانه یکسان ۴.۰ و بدون داده پرت (Outliers)[cite: 11]</td>
-      <td style="text-align: right;">همگنی ساختار توزیع بازخوردها در هر دو حوزه؛ اثبات امکان ادغام فضای ویژگی‌ها در قالب مدل توصیه‌گر ترکیبی میان‌حوزه‌ای (Cross-Domain)[cite: 11].</td>
+      <td style="text-align: right;">میانه یکسان ۴.۰ و بدون داده پرت (Outliers)</td>
+      <td style="text-align: right;">همگنی ساختار توزیع بازخوردها در هر دو حوزه؛ اثبات امکان ادغام فضای ویژگی‌ها در قالب مدل توصیه‌گر ترکیبی میان‌حوزه‌ای (Cross-Domain).</td>
     </tr>
     <tr>
       <td style="text-align: right;"><b>۴</b></td>
       <td style="text-align: right;"><b>پراکندگی فعالیت کاربران (User Engagement)</b></td>
       <td style="text-align: right;">Discrete Histogram</td>
-      <td style="text-align: right;">دقیقاً ۴ تعامل ثبت‌شده به ازای هر کاربر[cite: 11]</td>
-      <td style="text-align: right;">توازن کامل بازخورد کاربران اولیه؛ شرایط ایده‌آل و بدون سوگیری برای ارزیابی عادلانه عملکرد فیلترینگ مشارکتی بر پایه کاربر (User-Based CF)[cite: 11].</td>
+      <td style="text-align: right;">دقیقاً ۴ تعامل ثبت‌شده به ازای هر کاربر</td>
+      <td style="text-align: right;">توازن کامل بازخورد کاربران اولیه؛ شرایط ایده‌آل و بدون سوگیری برای ارزیابی عادلانه عملکرد فیلترینگ مشارکتی بر پایه کاربر (User-Based CF).</td>
     </tr>
   </tbody>
 </table>
@@ -200,7 +200,7 @@ movie-book-recommender/
 
 ## 🔬 جدول مقایسه تطبیقی آماری فیلم و کتاب (Cross-Domain Comparison)
 
-تحلیل داده‌های تلفیق‌شده با متد `groupby("item_type")` در اسکریپت تحلیلی گام سوم[cite: 11]:
+تحلیل داده‌های تلفیق‌شده با متد `groupby("item_type")` در اسکریپت تحلیلی گام سوم:
 
 <table dir="rtl" style="width: 100%; text-align: right;">
   <thead>
@@ -216,43 +216,43 @@ movie-book-recommender/
       <td style="text-align: right;"><b>تعداد تعاملات (Interaction Count)</b></td>
       <td style="text-align: right;">۱۳ تعامل (۵۴.۲٪)</td>
       <td style="text-align: right;">۱۱ تعامل (۴۵.۸٪)</td>
-      <td style="text-align: right;">توزیع کاملاً متعادل و بدون افتادن در دام کلاس نامتوازن[cite: 11]</td>
+      <td style="text-align: right;">توزیع کاملاً متعادل و بدون افتادن در دام کلاس نامتوازن</td>
     </tr>
     <tr>
       <td style="text-align: right;"><b>میانگین امتیازات (Mean Rating)</b></td>
       <td style="text-align: right;">۳.۹۲</td>
       <td style="text-align: right;">۴.۰۰</td>
-      <td style="text-align: right;">نمرات کتاب‌ها به دلیل گزینش آگاهانه‌تر کاربران اندکی بالاتر است[cite: 11]</td>
+      <td style="text-align: right;">نمرات کتاب‌ها به دلیل گزینش آگاهانه‌تر کاربران اندکی بالاتر است</td>
     </tr>
     <tr>
       <td style="text-align: right;"><b>انحراف معیار (Standard Deviation)</b></td>
       <td style="text-align: right;">۱.۱۲</td>
       <td style="text-align: right;">۱.۰۰</td>
-      <td style="text-align: right;">تنوع دیدگاه و پراکندگی سلایق در بین تماشاگران فیلم بالاتر است[cite: 11]</td>
+      <td style="text-align: right;">تنوع دیدگاه و پراکندگی سلایق در بین تماشاگران فیلم بالاتر است</td>
     </tr>
     <tr>
       <td style="text-align: right;"><b>واریانس نمرات (Variance)</b></td>
       <td style="text-align: right;">۱.۲۵</td>
       <td style="text-align: right;">۱.۰۰</td>
-      <td style="text-align: right;">هم‌پوشانی و ثبات بالاتر نظرات در جامعه کتاب‌خوان‌ها نسبت به فیلم‌ها[cite: 11]</td>
+      <td style="text-align: right;">هم‌پوشانی و ثبات بالاتر نظرات در جامعه کتاب‌خوان‌ها نسبت به فیلم‌ها</td>
     </tr>
     <tr>
       <td style="text-align: right;"><b>میانه نمرات (Median / 50%)</b></td>
       <td style="text-align: right;">۴.۰۰</td>
       <td style="text-align: right;">۴.۰۰</td>
-      <td style="text-align: right;">انطباق کامل نقطه ثقل رضایت عمومی در هر دو حوزه محتوایی[cite: 11]</td>
+      <td style="text-align: right;">انطباق کامل نقطه ثقل رضایت عمومی در هر دو حوزه محتوایی</td>
     </tr>
     <tr>
       <td style="text-align: right;"><b>دامنه بین‌چارکی (IQR Range)</b></td>
       <td style="text-align: right;">۳.۰۰ تا ۵.۰۰</td>
       <td style="text-align: right;">۳.۵۰ تا ۵.۰۰</td>
-      <td style="text-align: right;">فشردگی ۵۰ درصد میانی امتیازهای کتاب در بازه نمرات ممتاز[cite: 11]</td>
+      <td style="text-align: right;">فشردگی ۵۰ درصد میانی امتیازهای کتاب در بازه نمرات ممتاز</td>
     </tr>
     <tr>
       <td style="text-align: right;"><b>داده‌های پرت و خارج از محدوده (Outliers)</b></td>
       <td style="text-align: right;">۰ مورد</td>
       <td style="text-align: right;">۰ مورد</td>
-      <td style="text-align: right;">پایداری آماری بالا و قابلیت اتکا برای پیش‌بینی‌های مدل یادگیری[cite: 11]</td>
+      <td style="text-align: right;">پایداری آماری بالا و قابلیت اتکا برای پیش‌بینی‌های مدل یادگیری</td>
     </tr>
   </tbody>
 </table>
@@ -261,7 +261,7 @@ movie-book-recommender/
 
 ## 🛠️ مشخصات فنی و محیط توسعه پایدار سیستم
 
-تمامی پایپ‌لاین‌ها بر روی سیستم‌عامل ویندوز ۱۱ ویرایش ۶۴ بیتی اعتبارسنجی شده و پایداری کدهای آن به ثبت رسیده است[cite: 11]:
+تمامی پایپ‌لاین‌ها بر روی سیستم‌عامل ویندوز ۱۱ ویرایش ۶۴ بیتی اعتبارسنجی شده و پایداری کدهای آن به ثبت رسیده است:
 
 <table dir="rtl" style="width: 100%; text-align: right;">
   <thead>
@@ -290,7 +290,7 @@ movie-book-recommender/
     <tr>
       <td style="text-align: right;"><b>Matplotlib</b></td>
       <td style="text-align: right;" dir="ltr">3.11.1</td>
-      <td style="text-align: right;">موتور رسم گرید ۴ نمودار تحلیلی با تنظیم مستقیم تیک‌های محوری و سازگاری کامل[cite: 11]</td>
+      <td style="text-align: right;">موتور رسم گرید ۴ نمودار تحلیلی با تنظیم مستقیم تیک‌های محوری و سازگاری کامل</td>
     </tr>
     <tr>
       <td style="text-align: right;"><b>Jupyter Notebook / Lab</b></td>
@@ -341,11 +341,11 @@ jupyter notebook eda.ipynb
 
 ## 🗺️ نقشه راه توسعه و فازهای آتی (Project Roadmap)
 
-- [x] **گام اول:** پیاده‌سازی و شبیه‌سازی عامل‌های سه‌گانه هوشمند (تصادفی، واکنشی، مدل‌محور) در چارچوب PEAS[cite: 1]
-- [x] **گام دوم:** معماری خط لوله تفکیک داده Train/Test، ممیزی عدم نشت و محاسبه نرخ تخلخل[cite: 1]
-- [x] **گام دوم:** تدوین سند جامع طراحی سیستم، فرمولاسیون ریاضی و معیارهای ارزیابی در `DESIGN.md`[cite: 1]
-- [x] **گام سوم:** پیاده‌سازی خط لوله تحلیل اکتشافی داده‌ها (EDA) و ممیزی سلامت داده‌ها در نوت‌بوک[cite: 1, 11]
-- [x] **گام سوم:** طراحی بوم گرافیکی ۴ نمودار تحلیلی با کیفیت ۳۰۰ DPI و حل تعارضات کتابخانه ترسیم[cite: 6, 11]
+- [x] **گام اول:** پیاده‌سازی و شبیه‌سازی عامل‌های سه‌گانه هوشمند (تصادفی، واکنشی، مدل‌محور) در چارچوب PEAS
+- [x] **گام دوم:** معماری خط لوله تفکیک داده Train/Test، ممیزی عدم نشت و محاسبه نرخ تخلخل
+- [x] **گام دوم:** تدوین سند جامع طراحی سیستم، فرمولاسیون ریاضی و معیارهای ارزیابی در `DESIGN.md`
+- [x] **گام سوم:** پیاده‌سازی خط لوله تحلیل اکتشافی داده‌ها (EDA) و ممیزی سلامت داده‌ها در نوت‌بوک
+- [x] **گام سوم:** طراحی بوم گرافیکی ۴ نمودار تحلیلی با کیفیت ۳۰۰ DPI و حل تعارضات کتابخانه ترسیم
 - [x] **تکلیف هفتگی:** پیاده‌سازی مقایسه جامع الگوریتم‌های جستجو در `lab2_pathfinding.ipynb`
 - [ ] **گام چهارم:** پیاده‌سازی مدل‌های مشارکتی بر پایه کاربر و آیتم (User-Based & Item-Based Collaborative Filtering)
 - [ ] **گام چهارم:** به‌کارگیری الگوریتم‌های فاکتورگیری ماتریسی نظیر SVD جهت رفع چالش داده‌های تنک
@@ -354,6 +354,10 @@ jupyter notebook eda.ipynb
 
 ---
 
+## 👤 شناسنامه پروژه و توسعه‌دهنده
 
- 
+* **تهیه‌کننده: ابراهیم یدالهی**
+* **پروفایل گیت‌هاب:** [@ebrahimy5280-del](https://github.com/ebrahimy5280-del)
+* **ریپازیتوری اصلی:** [movie-book-recommender](https://github.com/ebrahimy5280-del/movie-book-recommender)
+
 </div>
