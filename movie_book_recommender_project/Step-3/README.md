@@ -1,343 +1,101 @@
-<div dir="rtl">
-
 # 📊 گام سوم: تحلیل اکتشافی داده‌ها (EDA) و توسعه پایپ‌لاین تحلیلی
-### 👨‍💻 تهیه کننده : ابراهیم یدالهی
-### نقش : پیاده سازی و کدنویسی 
+### 📚 سامانه هوشمند و چندحوزه‌ای پیشنهاددهنده فیلم و کتاب (Cross-Domain Recommender System)
 
 ---
 
-> 💡 **چکیده اجرایی :**  
-> در این فاز از پروژه، پایپ‌لاین کامل تحلیل اکتشافی داده‌ها (Exploratory Data Analysis) برای سیستم هوشمند پیشنهاددهنده کتاب و فیلم طراحی و پیاده‌سازی گردید. این خط لوله پردازشی شامل ماژول بارگذاری پویا و چندسکویی، ممیزی خودکار شاخص‌های کیفیت داده، موتور استخراج آماره‌های توصیفی برداری، حل تعارضات کتابخانه‌های بصری‌سازی و تولید گرید گرافیکی چهارگانه با رزولوشن ۳۰۰ DPI است.
+## 👥 اعضای تیم پروژه و تفکیک نقش‌ها
+- **ابراهیم یدالهی:** پیاده‌سازی و کدنویسی (Implementation & Software Development)
+- **پارسا میرباقری:** طراحی ساختار و معماری تحلیل (EDA Design & Methodology)
+- **محمد مهدی شفیعی:** مهندسی داده، ممیزی و ارزیابی آماری (Data Engineering & Evaluation)
+- **پارسا پیرو:** مستندسازی فنی و نگارش گزارش‌ها (Technical Documentation)
 
 ---
 
-## 📂 ۱. ساختار ماژولار و سازمان‌دهی فایل‌ها
-
-کلیه ورودی‌های پایگاه داده، نوت‌بوک اجرایی و فایل‌های خروجی مصورسازی‌شده طبق ساختار پوشه‌بندی زیر تفکیک و پیاده‌سازی شده‌اند:
-
-</div>
-
-```text
-Step-3/
-├── data/
-│   ├── items.csv            # پایگاه داده ویژگی‌ها و متادیتای فیلم‌ها و کتاب‌ها
-│   ├── ratings.csv          # لاگ بازخوردها، برچسب‌های زمانی و امتیازات کاربران
-│   └── eda_analysis.png     # تصویر نهایی ۴ نمودار تحلیلی تولیدشده (DPI 300)
-├── src/
-│   └── eda.ipynb            # نوت‌بوک جوپیتر شامل تمام کدهای تحلیلی و آماری
-└── README.md                # مستندات فنی و گزارش جامع پیاده‌سازی
-```
-
-<div dir="rtl">
+> 💡 **چکیده اجرایی:**  
+> در این فاز از پروژه، پایپ‌لاین جامع تحلیل اکتشافی داده‌ها (Exploratory Data Analysis) بر پایهٔ مجموعه داده مرجع و استاندارد بین‌المللی **Book-Crossing** طراحی و پیاده‌سازی شد. این خط لوله پردازشی وظیفه ممیزی داده‌های با حجم بالا، تفکیک بازخوردهای صریح از ضمنی، رفع چالش مقادیر مفقود جمعیت‌شناختی (ستون سن)، استخراج زیرمجموعه متراکم (Dense Subset) جهت بهینه‌سازی محاسبات ماتریسی و در نهایت تولید بوم‌های گرافیکی تحلیلی را بر عهده دارد.
 
 ---
 
-## 🛠 ۲. شرح اقدامات و وظایف تخصصی نقش کدنویسی (توسعه‌دهنده: ابراهیم یدالهی)
+## 🛠 ۲. شرح اقدامات و وظایف تخصصی نقش‌ها
 
-به عنوان مسئول بخش پیاده‌سازی و کدنویسی نرم‌افزار در گام سوم، تسک‌های فنی و مهندسی زیر پیاده‌سازی و نهایی شدند:
+### 👨‍💻 کدنویسی و پیاده‌سازی نرم‌افزار (ابراهیم یدالهی):
+- مدیریت انکودینگ و جداکننده‌ها (`encoding='latin-1'` و `;`) جهت حل چالش کاراکترهای خاص و پاک‌سازی سطرهای ناسازگار.
+- توسعه خط لوله فیلترینگ چگالی (Dense Subset Pipeline) با اعمال آستانه حداقل ۱۵ تعامل برای هر کاربر و کتاب.
+- رندرسازی نمودارها با پایتون خالص (Pure Matplotlib) جهت جلوگیری از خطاهای وابستگی محیطی.
+- اتوماسیون ذخیره‌سازی تصاویر خروجی با کیفیت ۳۰۰ DPI.
 
-- 🔹 **مدیریت مسیردهی پویا و چندسکویی (OS-Agnostic File Pathing):** به‌کارگیری کلاس `pathlib.Path` جهت تعریف مسیرهای داده به‌صورت شیءگرا و نسبی، به منظور تضمین اجرای اسکریپت بدون خطا در هر دو سیستم‌عامل ویندوز و لینوکس.
-- 🔹 **ادغام رابطه‌ای مجموعه‌داده‌ها (Relational Joining Pipeline):** پیاده‌سازی عملیات Inner Join بر روی ستون یکتای `item_id` با متد بهینه `pd.merge` برای تحلیل هم‌بستگی میان فرمت رسانه و سطح امتیازها.
-- 🔹 **توسعه پایپ‌لاین ممیزی سلامت داده (Automated Data Quality Audit):** کدنویسی اعتبارسنجی جامع برای تشخیص مقادیر مفقود، ردیابی سطرهای تکراری و اعتبارسنجی نوع فیلدها (`dtypes`).
-- 🔹 **موتور استخراج آماره‌های توصیفی برداری (Vectorized Descriptive Engine):** استخراج کمیت‌های مرکزی و پراکندگی (میانگین، واریانس، انحراف معیار، میانه، کمینه، بیشینه و چارک‌ها) بدون استفاده از حلقه‌های کند پایتونی.
-- 🔹 **برطرف‌سازی باگ ناسازگاری نسخه جدید Matplotlib:** رفع خطای تغییرات ساختاری نگارش‌های اخیر Matplotlib در نمودار جعبه‌ای (`boxplot`) با جایگزینی شیوه سنتی و مقداردهی مستقیم به متدهای `set_xticks` و `set_xticklabels` روی آبجکت‌های Axes.
-- 🔹 **طراحی بوم گرافیکی چهارگانه هم‌زمان (2×2 Subplots Canvas):** پیاده‌سازی گرید بصری منسجم در ابعاد ۱۲×۸ اینچ با استایل مدرن `seaborn-v0_8-whitegrid` و بهینه‌سازی فاصله‌گذاری المان‌ها با `plt.tight_layout`.
-- 🔹 **اتوماسیون خروجی گرافیکی (Export Engine):** کدنویسی ذخیره‌سازی خودکار نمودار با متد `plt.savefig` در رزولوشن ۳۰۰ DPI با برش حواشی اضافی (`bbox_inches='tight'`) در پوشه مقصد.
+### 📐 طراحی ساختار و متدولوژی تحلیل (پارسا میرباقری):
+- تدوین راهکار مواجهه با مقادیر مفقود ستون سن و تخصیص ردهٔ مستقل `Unknown`.
+- طراحی سوالات تحلیلی جهت سنجش رفتار امتیازدهی کاربران فاقد سن در مقایسه با کاربران معتبر.
+
+### 📊 مهندسی داده و ارزیابی آماری (محمد مهدی شفیعی):
+- ارزیابی یکپارچگی ارجاعی و ممیزی کیفی ابعاد پایگاه داده.
+- استخراج شاخص‌های آمار توصیفی (میانگین، میانه، انحراف معیار و چارک‌ها) برای نمرات صریح.
+- سنجش آماری توزیع مقادیر گمشده سن در مقایسه با داده‌های معتبر.
+
+### 📝 مستندسازی فنی و نگارش گزارش‌ها (پارسا پیرو):
+- ساختاردهی مستندات بر اساس متدولوژی استاندارد (مشاهده ⬅️ دلیل ⬅️ تصمیم مهندسی).
+- مستندسازی یافته‌های مصورسازی و تبیین اثرات سوگیری مثبت و توزیع دم‌بلند (Long-Tail).
+- تدوین راهنمای بازتولید نتایج (Reproducibility) برای ارزیابی مجدد پروژه.
 
 ---
 
 ## 📋 ۳. ممیزی جامع سلامت و کیفیت داده‌ها (Data Quality Audit)
 
-پیش از ورود به تحلیل‌های ریاضی، ارزیابی کیفی داده‌ها توسط توابع کنترلی انجام شد که نتایج آن در جدول زیر خلاصه شده است:
-
-<table dir="rtl" style="width: 100%; text-align: right;">
-  <thead>
-    <tr>
-      <th style="text-align: right;">مشخصه ممیزی (Audit Metric)</th>
-      <th style="text-align: right;">متد پایتون پیاده‌سازی‌شده</th>
-      <th style="text-align: right;">وضعیت در ratings.csv</th>
-      <th style="text-align: right;">وضعیت در items.csv</th>
-      <th style="text-align: right;">وضعیت نهایی</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: right;"><b>ابعاد ماتریس داده</b></td>
-      <td style="text-align: right;" dir="ltr"><code>df.shape</code></td>
-      <td style="text-align: right;">۲۴ سطر و ۵ ستون</td>
-      <td style="text-align: right;">۸ سطر و ۵ ستون</td>
-      <td style="text-align: right;">✔️ منطبق با طراحی اولیه</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>مقادیر گمشده (Missing Values)</b></td>
-      <td style="text-align: right;" dir="ltr"><code>df.isna().sum().sum()</code></td>
-      <td style="text-align: right;">۰ مقدار نال</td>
-      <td style="text-align: right;">۰ مقدار نال</td>
-      <td style="text-align: right;">✔️ داده‌ها ۱۰۰٪ کامل</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>سطرهای تکراری (Duplicates)</b></td>
-      <td style="text-align: right;" dir="ltr"><code>df.duplicated().sum()</code></td>
-      <td style="text-align: right;">۰ ردیف تکراری</td>
-      <td style="text-align: right;">۰ ردیف تکراری</td>
-      <td style="text-align: right;">✔️ بدون افزونگی داده‌ای</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>صحت نوع داده شناسه کاربر</b></td>
-      <td style="text-align: right;" dir="ltr"><code>df['user_id'].dtype</code></td>
-      <td style="text-align: right;">رشته متنی (<code>object</code>)</td>
-      <td style="text-align: right;">نامربوط</td>
-      <td style="text-align: right;">✔️ استاندارد کلید اصلی</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>صحت نوع داده شناسه آیتم</b></td>
-      <td style="text-align: right;" dir="ltr"><code>df['item_id'].dtype</code></td>
-      <td style="text-align: right;">رشته متنی (<code>object</code>)</td>
-      <td style="text-align: right;">رشته متنی (<code>object</code>)</td>
-      <td style="text-align: right;">✔️ استاندارد کلید خارجی</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>صحت نوع داده امتیاز</b></td>
-      <td style="text-align: right;" dir="ltr"><code>df['rating'].dtype</code></td>
-      <td style="text-align: right;">عدد صحیح (<code>int64</code>)</td>
-      <td style="text-align: right;">نامربوط</td>
-      <td style="text-align: right;">✔️ آماده محاسبات ریاضی</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>صحت برچسب زمانی</b></td>
-      <td style="text-align: right;" dir="ltr"><code>df['timestamp'].dtype</code></td>
-      <td style="text-align: right;">عدد صحیح (<code>int64</code>)</td>
-      <td style="text-align: right;">نامربوط</td>
-      <td style="text-align: right;">✔️ استاندارد Unix Epoch</td>
-    </tr>
-  </tbody>
-</table>
+| مشخصه ممیزی (Audit Metric) | متد پایتون | وضعیت در BX-Book-Ratings | وضعیت در BX-Books | وضعیت در BX-Users | وضعیت نهایی |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **ابعاد ماتریس داده خام** | `df.shape` | ۱,۱۴۹,۷۸۰ سطر و ۳ ستون | ۲۷۱,۳۶۰ سطر و ۸ ستون | ۲۷۸,۸۵۸ سطر و ۳ ستون | ✔️ بارگذاری موفق |
+| **تفکیک تعاملات صریح** | `ratings['Book-Rating'] > 0` | حذف تعاملات ضمنی (نمره ۰) | نامربوط | نامربوط | ✔️ تفکیک بازه نمرات ۱ تا ۱۰ |
+| **ابعاد زیرمجموعه متراکم** | `dense_ratings.shape` | ۶۳,۶۳۲ نمره | ۳,۱۴۹ کتاب | ۴,۶۱۲ کاربر فعال | ✔️ پالایش تنک‌بودن ماتریس |
+| **مقادیر گمشده سن (Age Nulls)** | `users['Age'].isna().sum()` | فاقد مقدار نال | فاقد فیلد سن | ۱۱۲,۰۲۹ کاربر (۴۰.۲٪) | ✔️ مدیریت با دسته Unknown |
+| **سن‌های معتبر (Valid Ages)** | `users['Age'].notna().sum()` | نامربوط | نامربوط | ۱۶۶,۸۲۹ کاربر (۵۹.۸٪) | ✔️ پالایش بازه ۵ تا ۹۵ سال |
 
 ---
 
 ## 📈 ۴. خلاصه شاخص‌های آمار توصیفی نمرات (Descriptive Statistics)
 
-تحلیل آماری انجام‌شده روی کل نمرات ثبت‌شده به شرح جدول زیر است:
-
-<table dir="rtl" style="width: 100%; text-align: right;">
-  <thead>
-    <tr>
-      <th style="text-align: right;">شاخص آماری (Statistic)</th>
-      <th style="text-align: right;">نماد ریاضی</th>
-      <th style="text-align: right;">مقدار عددی</th>
-      <th style="text-align: right;">تفسیر و مفهوم فنی در تحلیل داده</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: right;"><b>تعداد کل امتیازها (Count)</b></td>
-      <td style="text-align: right;">$N$</td>
-      <td style="text-align: right;">۲۴</td>
-      <td style="text-align: right;">حجم کل تعاملات ورودی ثبت‌شده در فاز پایلوت</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>میانگین حسابی (Mean)</b></td>
-      <td style="text-align: right;">$\mu$</td>
-      <td style="text-align: right;">۳.۹۶</td>
-      <td style="text-align: right;">تمایل عمومی و مرکز ثقل بازخورد کاربران</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>انحراف معیار (Standard Deviation)</b></td>
-      <td style="text-align: right;">$\sigma$</td>
-      <td style="text-align: right;">۱.۰۴</td>
-      <td style="text-align: right;">فاصله میانگین نظرات کاربران حول مقدار مرکزی</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>واریانس (Variance)</b></td>
-      <td style="text-align: right;">$\sigma^2$</td>
-      <td style="text-align: right;">۱.۰۹</td>
-      <td style="text-align: right;">توان دوم انحراف معیار و شدت پراکندگی امتیازها</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>میانه نمرات (Median / 50%)</b></td>
-      <td style="text-align: right;">$Q_2$</td>
-      <td style="text-align: right;">۴.۰۰</td>
-      <td style="text-align: right;">نمره میانی؛ نشان‌دهنده رضایت عمومی کاربران</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>کمینه نمره (Minimum)</b></td>
-      <td style="text-align: right;">$Min$</td>
-      <td style="text-align: right;">۲.۰۰</td>
-      <td style="text-align: right;">پایین‌ترین امتیاز ثبت‌شده در سیستم تعاملات</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>چارک اول (25th Percentile)</b></td>
-      <td style="text-align: right;">$Q_1$</td>
-      <td style="text-align: right;">۳.۰۰</td>
-      <td style="text-align: right;">مرز ۲۵ درصد پایین نمرات داده‌شده</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>چارک سوم (75th Percentile)</b></td>
-      <td style="text-align: right;">$Q_3$</td>
-      <td style="text-align: right;">۵.۰۰</td>
-      <td style="text-align: right;">مرز نمرات فوق‌العاده بالا و بازخوردهای عالی</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>دامنه بین‌چارکی (IQR)</b></td>
-      <td style="text-align: right;">$Q_3 - Q_1$</td>
-      <td style="text-align: right;">۲.۰۰</td>
-      <td style="text-align: right;">تمرکز ۵۰ درصد میانی نظرات کاربران</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>بیشینه نمره (Maximum)</b></td>
-      <td style="text-align: right;">$Max$</td>
-      <td style="text-align: right;">۵.۰۰</td>
-      <td style="text-align: right;">سقف امتیاز سیستم پیشنهاددهنده</td>
-    </tr>
-  </tbody>
-</table>
+| شاخص آماری (Statistic) | نماد ریاضی | مقدار عددی | تفسیر و مفهوم فنی در سیستم پیشنهاددهنده |
+| :--- | :--- | :--- | :--- |
+| **تعداد کل امتیازها (Count)** | $N$ | ۶۳,۶۳۲ | تعداد کل ارزیابی‌های صریح در ماتریس متراکم |
+| **میانگین حسابی (Mean)** | $\mu$ | ۷.۹۰ | تمایل بالای کاربران به ابراز بازخورد مثبت در سیستم |
+| **میانه نمرات (Median / 50%)** | $Q_2$ | ۸.۰۰ | پایداری شاخص مرکزی و توزیع متمایل به سمت راست |
+| **انحراف معیار (Standard Deviation)** | $\sigma$ | ۱.۷۶ | پراکندگی متناسب امتیازها حول میانگین |
+| **دامنه بین‌چارکی (IQR)** | $Q_3 - Q_1$ | ۲.۰۰ | تمرکز ۵۰ درصد نظرات میانی در بازه نمره ۷ تا ۹ |
+| **کمینه / بیشینه (Min / Max)** | $Min / Max$ | ۱ / ۱۰ | انطباق کامل با استاندارد ارزیابی صریح |
 
 ---
 
-## ⚖️ ۵. جدول مقایسه تحلیلی فیلم در برابر کتاب (Cross-Domain Comparison)
+## 🎨 ۵. مهندسی مصورسازی داده‌ها و تشریح نمودارها
 
-برای درک رفتار کاربران در هر رسانه، داده‌ها با متد `groupby("item_type")` تفکیک و مقایسه گردیدند:
+- **بوم اول (`eda_analysis.png`):**
+  - **توزیع فراوانی نمرات:** تمرکز بیش از ۶۵٪ امتیازها روی نمرات ۷، ۸ و ۱۰ که نشان‌دهنده **سوگیری انتخاب مثبت (Positive Selection Bias)** است.
+  - **کتاب‌های پرتعامل:** پیشتازی رمان‌های پرفروش و عامه‌پسند که گویای **اثر محبوبیت توده‌ای (Popularity Bias)** و کاربرد آن‌ها در سناریوی شروع سرد (Cold-Start) است.
+  - **نمودار جعبه‌ای:** نمایش میانه روی نمره ۸ و حضور داده‌های دورافتاده (Outliers) در نمرات پایین که نیازمند منظم‌سازی ($L_2$) است.
+  - **پراکندگی فعالیت کاربران:** تبعیت تعاملات از **قانون توان (Power Law)** و همگرایی میانگین نمرات کاربران فعال.
 
-<table dir="rtl" style="width: 100%; text-align: right;">
-  <thead>
-    <tr>
-      <th style="text-align: right;">شاخص مقایسه‌ای</th>
-      <th style="text-align: right;">رسانه فیلم (Movies)</th>
-      <th style="text-align: right;">رسانه کتاب (Books)</th>
-      <th style="text-align: right;">تحلیل و مقایسه تطبیقی</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: right;"><b>حجم تعاملات (Interaction Count)</b></td>
-      <td style="text-align: right;">۱۳ تعامل (۵۴.۲٪)</td>
-      <td style="text-align: right;">۱۱ تعامل (۴۵.۸٪)</td>
-      <td style="text-align: right;">توازن بسیار عالی بین دو رسانه بدون چولگی حجمی</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>میانگین نمرات (Mean Rating)</b></td>
-      <td style="text-align: right;">۳.۹۲</td>
-      <td style="text-align: right;">۴.۰۰</td>
-      <td style="text-align: right;">نمرات کتاب‌ها به میزان ۰.۰۸ واحد بالاتر است</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>انحراف معیار (Standard Deviation)</b></td>
-      <td style="text-align: right;">۱.۱۲</td>
-      <td style="text-align: right;">۱.۰۰</td>
-      <td style="text-align: right;">نظرات فیلم‌ها تنوع و پراکندگی بیشتری نسبت به کتاب دارند</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>واریانس نمرات (Variance)</b></td>
-      <td style="text-align: right;">۱.۲۵</td>
-      <td style="text-align: right;">۱.۰۰</td>
-      <td style="text-align: right;">هم‌گرایی بیشتر آراء در دسته کتاب‌ها نسبت به فیلم</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>میانه نمرات (Median)</b></td>
-      <td style="text-align: right;">۴.۰۰</td>
-      <td style="text-align: right;">۴.۰۰</td>
-      <td style="text-align: right;">انطباق کامل نقطه ثقل رضایت در هر دو رسانه</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>چارک اول و سوم (IQR Range)</b></td>
-      <td style="text-align: right;">۳.۰۰ تا ۵.۰۰</td>
-      <td style="text-align: right;">۳.۵۰ تا ۵.۰۰</td>
-      <td style="text-align: right;">فشردگی بیشتر ۵۰ درصد میانی امتیازات کتاب‌ها</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>داده پرت و نامتعارف (Outliers)</b></td>
-      <td style="text-align: right;">۰ مورد</td>
-      <td style="text-align: right;">۰ مورد</td>
-      <td style="text-align: right;">رفتار آماری کاملاً همگن و قابل اطمینان</td>
-    </tr>
-  </tbody>
-</table>
+- **بوم دوم (`age_eda_analysis.png`):**
+  - **توزیع سن کاربران:** بیشترین تراکم سنی در رده ۲۲ تا ۳۸ سال قرار دارد.
+  - **سهم مقادیر مفقود سن:** نشان‌دهنده ۴۰.۲٪ مقادیر Null که با برچسب `Unknown` مدیریت شدند.
+  - **پراکندگی سن و نمره:** عدم وجود همبستگی خطی مستقیم میان سن کاربر و سطح امتیازدهی.
+  - **مقایسه گروه‌های سنی:** تطابق کامل رفتار مرکزی گروه `Unknown` با سایر گروه‌های سنی (میانه ثابت روی ۸.۰۰).
 
 ---
 
-## 🎨 ۶. مهندسی مصورسازی داده‌ها و تشریح نمودارها
+## 🎯 ۶. خلاصه تحلیلی نتایج (مشاهده ⬅️ دلیل ⬅️ تصمیم مهندسی)
 
-خروجی تصویری تولیدشده توسط پایپ‌لاین که در مسیر `data/eda_analysis.png` ذخیره شده است:
-
-<div align="center">
-
-![نمودارهای تحلیل اکتشافی داده‌ها](data/eda_analysis.png)
-
-</div>
-
-### 1️⃣ توزیع فراوانی نمرات (Rating Distribution)
-- **نوع و ساختار پیاده‌سازی:** Bar Plot / Frequency Histogram با مرتب‌سازی اندیس‌ها.
-- **جزئیات و تحلیل فنی:** نمرات ۲، ۳، ۴ و ۵ به ترتیب دارای فراوانی ۳، ۴، ۸ و ۹ هستند. تمرکز بیش از ۷۰ درصدی داده‌ها روی سطوح رضایت بالا نشان‌دهنده چولگی منفی (Left-skewed) و وجود پدیده سوگیری مثبت (Positivity Bias) در بازخوردهای کاربران است.
-
-### 2️⃣ حجم تعاملات به تفکیک رسانه (Interaction Volume by Media Type)
-- **نوع و ساختار پیاده‌سازی:** Categorical Bar Plot با پالت رنگی مجزا برای هر دسته.
-- **جزئیات و تحلیل فنی:** نسبت ۱۳ فیلم به ۱۱ کتاب اثبات می‌کند که دیتاست دارای بالانس بسیار خوبی است و مدل توصیه‌گر دچار انحراف ناشی از عدم تقارن کلاس‌ها (Class Imbalance) نخواهد شد.
-
-### 3️⃣ مقایسه آماری نمرات رسانه‌ها (Boxplot Distribution)
-- **نوع و ساختار پیاده‌سازی:** Box & Whisker Plot با مشخص کردن میانه قرمز رنگ و خطوط چارکی.
-- **جزئیات و تحلیل فنی:** خط میانه در هر دو رسانه روی عدد ۴.۰ ثابت است. بازه بین‌چارکی کتاب‌ها فشرده‌تر بوده و نبود نقاط خارج از خطوط ویسکرز نشان‌دهنده نبود داده پرت حاد در هر دو حوزه رسانه‌ای است.
-
-### 4️⃣ پراکندگی حجم فعالیت کاربران (User Engagement Dispersion)
-- **نوع و ساختار پیاده‌سازی:** Discrete Histogram با باین‌بندی دقیق داده‌ها.
-- **جزئیات و تحلیل فنی:** تمام ۶ کاربر ثبت‌شده در پایگاه داده دقیقاً دارای ۴ تعامل هستند. این تقارن، شرایطی ایده‌آل برای ارزیابی الگوریتم‌های فیلترینگ مشارکتی بر پایه کاربر (User-Based CF) بدون اخلال پدیده کاربران کم‌تعامل فراهم می‌آورد.
+| مشاهده آماری (Observation) | ریشه و دلیل داده‌ای (Reason) | نتیجه و تصمیم مهندسی در مدل‌سازی (Conclusion) |
+| :--- | :--- | :--- |
+| **میانگین نمرات روی ۷.۹۰ و میانه روی ۸.۰۰ قرار دارد.** | سوگیری انتخاب مثبت؛ کاربران کتاب‌های مورد علاقه خود را ارزیابی می‌کنند. | استفاده از نرمال‌سازی انحراف از میانگین کاربر (User Mean-Centering) در فیلترینگ مشارکتی. |
+| **تعداد محدودی از کتاب‌ها تعاملات بالایی دارند.** | اثر محبوبیت عمومی و پرفروش بودن عناوین شناخته‌شده. | توسعه سیستم پیش‌فرض مبتنی بر محبوبیت (Popularity-Based) برای رفع مشکل شروع سرد. |
+| **۴۰.۲٪ از کاربران فاقد مقدار سن ثبت‌شده هستند.** | اختیاری بودن فیلد سن در زمان ثبت‌نام در پایگاه داده. | تخصیص برچسب `Unknown` به جای حذف رکوردها جهت حفظ تعاملات ارزشمند. |
+| **توزیع نمرات گروه Unknown مشابه سایر کاربران است.** | عدم ثبت سن ارتباطی با میزان رضایت از آثار ندارد. | امکان بهره‌گیری از داده‌های این گروه بدون ریسک سوگیری پنهان. |
 
 ---
 
-## 🎯 ۷. خلاصه تحلیلی نتایج در قالب مشاهده، دلیل و نتیجه
+## 🚀 ۷. راهنمای بازتولید محاسبات و نمودارها
 
-<table dir="rtl" style="width: 100%; text-align: right;">
-  <thead>
-    <tr>
-      <th style="text-align: right;">مشاهده (Observation)</th>
-      <th style="text-align: right;">ریشه و دلیل داده‌ای (Reason)</th>
-      <th style="text-align: right;">نتیجه در سیستم پیشنهاددهنده (Conclusion)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: right;"><b>۷۰.۸٪ نمرات در سطوح ۴ و ۵ ثبت شده‌اند.</b></td>
-      <td style="text-align: right;">سوگیری مثبت بازخورد؛ کاربران بیشتر تمایل به ثبت بازخورد روی آثاری دارند که مورد پسندشان واقع شده است.</td>
-      <td style="text-align: right;">در فاز مدل‌سازی، نرمال‌سازی انحراف از میانگین (Mean-Centering) برای حذف سوگیری خوش‌بینی یا سخت‌گیری کاربران ضروری است.</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>میانگین نمرات کتاب (۴.۰۰) کمی بالاتر از فیلم (۳.۹۲) است.</b></td>
-      <td style="text-align: right;">مطالعه کتاب نیاز به صرف زمان بیشتری دارد و کاربران در گزینش اولیه کتاب‌ها دقت بالاتری به خرج می‌دهند.</td>
-      <td style="text-align: right;">رفتار بازخوردی هر دو رسانه بسیار نزدیک و همگن است و می‌توان از یک ساختار پیشنهادی مشترک (Cross-Domain) استفاده کرد.</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>میانه نمرات (۴.۰۰) از میانگین (۳.۹۶) بالاتر است.</b></td>
-      <td style="text-align: right;">وجود چند نمره ضعیف (امتیاز ۲) میانگین حسابی را اندکی به سمت پایین متمایل کرده است.</td>
-      <td style="text-align: right;">میانه به عنوان شاخص مرکزی ناپارامتری، معیار باثبات‌تری برای تعریف آستانه رضایت کاربران محسوب می‌شود.</td>
-    </tr>
-    <tr>
-      <td style="text-align: right;"><b>تمامی کاربران دارای دقیقاً ۴ تعامل ثبت‌شده هستند.</b></td>
-      <td style="text-align: right;">فرآیند تولید کنترل‌شده و ساختاریافته داده‌های اعتبارسنجی اولیه در گام دوم.</td>
-      <td style="text-align: right;">ماتریس تعاملات در این مرحله چالش تنک‌بودن نامتقارن ندارد و پایپ‌لاین مدل‌سازی بدون خطای مقادیر تهی تست خواهد شد.</td>
-    </tr>
-  </tbody>
-</table>
+برای بازتولید کلیه خروجی‌ها در محیط محلی:
 
----
-
-## 🚀 ۸. راهنمای گام‌به‌گام راه‌اندازی و اجرای خط لوله
-
-برای بازتولید کلیه خروجی‌ها و اجرای مجدد محاسبات در محیط ترمینال و جوپیتر:
-
-۱. فعال‌سازی محیط کاندای اختصاصی پروژه:
+۱. نصب وابستگی‌های استاندارد پایتون:
 ```bash
-conda activate ailab
-```
-
-۲. ورود به پوشه کدهای گام سوم:
-```bash
-cd movie_book_recommender_project/Step-3/src
-```
-
-۳. اجرای نوت‌بوک جوپیتر:
-```bash
-jupyter notebook eda.ipynb
-```
-
-با اجرای سلول‌های نوت‌بوک، جدول‌های ممیزی و خروجی‌های آماری در کنسول چاپ شده و تصویر ۴ نمودار تحلیلی با کیفیت بالا در مسیر `Step-3/data/eda_analysis.png` به‌صورت خودکار ذخیره و جایگزین می‌شود.
-
-</div>
+pip install pandas numpy matplotlib
