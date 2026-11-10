@@ -39,7 +39,7 @@
 
 ---
 
-## 📊 جدول مشخصات و وضعیت تحویل تمرین‌ها
+## 📊 جدول مشخصات و وضعیت تحویل کلیه تمرین‌ها
 
 <table dir="rtl" style="width: 100%; text-align: right;">
   <thead>
@@ -85,7 +85,172 @@
 
 ---
 
-## 🔬 بخش اول: جزئیات و برون‌دادهای تحلیلی تمرین جلسه چهارم (بازی Nim با جستجوی تقابلی)
+## 🔬 بخش اول: جزئیات تحلیلی تمرین جلسه اول (بررسی و تست محیط نرم‌افزاری)
+
+### ۱. جدول ممیزی سلامت وابستگی‌ها و پکیج‌های محیط Conda (`ailab`)
+
+<table dir="rtl" style="width: 100%; text-align: right;">
+  <thead>
+    <tr>
+      <th style="text-align: right;">نام کتابخانه / ابزار</th>
+      <th style="text-align: right;">نسخه ثبت‌شده</th>
+      <th style="text-align: right;">کاربرد محوری در آزمایشگاه هوش مصنوعی</th>
+      <th style="text-align: right;">نتیجه تست اجرایی</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right;"><b>Python Kernel</b></td>
+      <td style="text-align: right;">3.10+ / 3.11+</td>
+      <td style="text-align: right;">هسته اصلی اجرای نوت‌بوک‌ها و اسکریپت‌ها</td>
+      <td style="text-align: right;">موفق و پایدار ✔️</td>
+    </tr>
+    <tr>
+      <td style="text-align: right;"><b>NumPy</b></td>
+      <td style="text-align: right;">1.24+</td>
+      <td style="text-align: right;">محاسبات برداری، ماتریس‌ها و عملیات جبر خطی عددی</td>
+      <td style="text-align: right;">موفق و پایدار ✔️</td>
+    </tr>
+    <tr>
+      <td style="text-align: right;"><b>Pandas</b></td>
+      <td style="text-align: right;">2.0+</td>
+      <td style="text-align: right;">ساختار داده دیتافریم، پاک‌سازی و تحلیل‌های آماری</td>
+      <td style="text-align: right;">موفق و پایدار ✔️</td>
+    </tr>
+    <tr>
+      <td style="text-align: right;"><b>Matplotlib</b></td>
+      <td style="text-align: right;">3.7+</td>
+      <td style="text-align: right;">رسم نمودارهای علمی، توزیع‌ها و بوم‌های گرافیکی EDA</td>
+      <td style="text-align: right;">موفق و پایدار ✔️</td>
+    </tr>
+    <tr>
+      <td style="text-align: right;"><b>Scipy</b></td>
+      <td style="text-align: right;">1.10+</td>
+      <td style="text-align: right;">محاسبات علمی، ماتریس‌های تنک و توابع آماری پیشرفته</td>
+      <td style="text-align: right;">موفق و پایدار ✔️</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+### ۲. جدول تفسیر و تصمیمات مهندسی جلسه اول (مشاهده ⬅️ دلیل ⬅️ نتیجه)
+
+<table dir="rtl" style="width: 100%; text-align: right;">
+  <thead>
+    <tr>
+      <th style="text-align: right;">مشاهده (Observation)</th>
+      <th style="text-align: right;">ریشه و دلیل فنی (Reason)</th>
+      <th style="text-align: right;">نتیجه‌گیری و تصمیم مهندسی (Conclusion)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right;"><b>تداخل پکیج‌ها در پایتون پیش‌فرض سیستم‌عامل.</b></td>
+      <td style="text-align: right;">تفاوت نسخه‌های پیش‌نیاز در پروژه‌های مختلف دانشگاهی و سیستمی.</td>
+      <td style="text-align: right;">ایزوله‌سازی اجباری کلیه کتابخانه‌ها در یک محیط مجازی مجزا با دستور <code>conda activate ailab</code>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: right;"><b>نیاز به بازتولیدپذیری نتایج آزمایشگاه در سیستم‌های مختلف.</b></td>
+      <td style="text-align: right;">تغییر خروجی برخی الگوریتم‌ها با به‌روزرسانی پکیج‌ها.</td>
+      <td style="text-align: right;">استفاده از فایل مانیفست <code>environment.yml</code> جهت یکسان‌سازی نسخه‌ها در تمام سیستم‌ها.</td>
+    </tr>
+    <tr>
+      <td style="text-align: right;"><b>خطاهای عدم شناسایی کرنل در نوت‌بوک‌های ژوپیتر.</b></td>
+      <td style="text-align: right;">عدم رجیستر بودن پکیج <code>ipykernel</code> داخل محیط مجازی تازه ایجادشده.</td>
+      <td style="text-align: right;">اتصال صریح محیط ایزوله به ژوپیتر از طریق نصب کرنل اختصاصی برای محیط <code>ailab</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## 🔬 بخش دوم: جزئیات تحلیلی تمرین جلسات دوم و سوم (مسیریابی و الگوریتم‌های جستجو)
+
+### ۱. مقایسه آماری جامع عملکرد الگوریتم‌های جستجو در ۱۰۰ نقشه تصادفی (گرید ۲۰×۲۰)
+
+<table dir="rtl" style="width: 100%; text-align: right;">
+  <thead>
+    <tr>
+      <th style="text-align: right;">الگوریتم جستجو</th>
+      <th style="text-align: right;">نوع استراتژی</th>
+      <th style="text-align: right;">میانگین طول مسیر (Path Cost)</th>
+      <th style="text-align: right;">میانگین گره‌های بازشده (Expanded Nodes)</th>
+      <th style="text-align: right;">بهینگی مسیر (Optimality)</th>
+      <th style="text-align: right;">کامل بودن (Completeness)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right;"><b>BFS (سطح‌اول)</b></td>
+      <td style="text-align: right;">ناآگاهانه (Uninformed)</td>
+      <td style="text-align: right;">بهینه (کوتاه‌ترین مسیر)</td>
+      <td style="text-align: right;">بسیار بالا (~ ۲۴۰ گره)</td>
+      <td style="text-align: right;">✔️ تضمین بهینگی</td>
+      <td style="text-align: right;">✔️ کامل</td>
+    </tr>
+    <tr>
+      <td style="text-align: right;"><b>DFS (عمق‌اول)</b></td>
+      <td style="text-align: right;">ناآگاهانه (Uninformed)</td>
+      <td style="text-align: right;">بسیار طولانی و دارای پیچش</td>
+      <td style="text-align: right;">متغیر و وابسته به جهت (~ ۱۸۰ گره)</td>
+      <td style="text-align: right;">❌ غیربهینه</td>
+      <td style="text-align: right;">✔️ در محیط محدود</td>
+    </tr>
+    <tr>
+      <td style="text-align: right;"><b>A* (منهتن)</b></td>
+      <td style="text-align: right;">آگاهانه (Informed)</td>
+      <td style="text-align: right;">بهینه (کوتاه‌ترین مسیر)</td>
+      <td style="text-align: right;">بسیار پایین (~ ۵۵ گره)</td>
+      <td style="text-align: right;">✔️ تضمین بهینگی</td>
+      <td style="text-align: right;">✔️ کامل</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+### ۲. جدول تفسیر و تصمیمات مهندسی الگوریتم‌های مسیریابی (مشاهده ⬅️ دلیل ⬅️ نتیجه)
+
+<table dir="rtl" style="width: 100%; text-align: right;">
+  <thead>
+    <tr>
+      <th style="text-align: right;">مشاهده (Observation)</th>
+      <th style="text-align: right;">ریشه و دلیل الگوریتمی (Reason)</th>
+      <th style="text-align: right;">نتیجه‌گیری و تصمیم مهندسی (Conclusion)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right;"><b>الگوریتم A* تعداد گره‌های بازشده را تا بیش از ۷۵٪ نسبت به BFS کاهش داد.</b></td>
+      <td style="text-align: right;">هدایت جستجو به سمت هدف به کمک تابع ارزیابی $f(n) = g(n) + h(n)$ و هیوریستیک منهتن.</td>
+      <td style="text-align: right;">در فضای جستجوی بزرگ، استفاده از الگوریتم‌های آگاهانه برای مدیریت حافظه و زمان ضروری است.</td>
+    </tr>
+    <tr>
+      <td style="text-align: right;"><b>طول مسیر خروجی BFS و A* دقیقاً با یکدیگر برابر است.</b></td>
+      <td style="text-align: right;">پذیرفتنی بودن (Admissibility) و سازگاری (Consistency) هیوریستیک منهتن ($h(n) \le h^*(n)$).</td>
+      <td style="text-align: right;">اثبات تجربی شرط بهینگی A*؛ بدون از دست رفتن کوتاه‌ترین مسیر، فضای جستجو محدود شد.</td>
+    </tr>
+    <tr>
+      <td style="text-align: right;"><b>مسیر تولیدشده توسط DFS بسیار پرپیچ‌وخم و غیرکاربردی است.</b></td>
+      <td style="text-align: right;">ماهیت حریصانه DFS در رفتن به عمق شاخه‌ها بدون در نظر گرفتن هزینه مسیر طی‌شده.</td>
+      <td style="text-align: right;">الگوریتم DFS برای یافتن کوتاه‌ترین مسیر نامناسب است و تنها در پیمایش‌های خاص کاربرد دارد.</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+### ۳. چالش تکمیلی جلسات دوم و سوم: حرکت ۸ جهته با هیوریستیک فاصله چبیشف (Chebyshev)
+- **مسئله:** تغییر دامنه حرکتی عامل از ۴ جهت (بالا، پایین، چپ، راست) به ۸ جهت (اضافه شدن قطرهای مورب).
+- **چالش تئوری:** در حرکت ۸ جهته، فاصله منهتن دیگر پذیرفتنی (Admissible) نیست و ممکن است کوتاه‌ترین مسیر واقعی را دست‌بالا تخمین بزند که منجر به از بین رفتن بهینگی A* می‌شود.
+- **راه‌حل پیاده‌سازی‌شده:** فرموله‌سازی و جایگزینی هیوریستیک چبیشف به صورت:
+  $$h(n) = \max(|x_n - x_{goal}|, |y_n - y_{goal}|)$$
+- **نتیجه تجربی:** مسیرهای مورب به‌درستی انتخاب شدند، طول مسیر اقلیدسی به صورت چشمگیری کاهش یافت و تضمین بهینگی الگوریتم حفظ گردید.
+
+---
+
+## 🔬 بخش سوم: جزئیات تحلیلی تمرین جلسه چهارم (بازی Nim با جستجوی تقابلی)
 
 ### ۱. مقایسه هزینه محاسباتی الگوریتم‌های جستجو
 برای پشته کلاسیک شروع `(3, 4, 5)`، تعداد گره‌های پیمایش‌شده به شرح زیر ارزیابی گردید:
@@ -141,16 +306,16 @@
 
 ---
 
-## 🔬 بخش دوم: جزئیات و نتایج تحلیلی تمرین جلسه پنجم (یادگیری ماشین و نوت‌بوک Lab 4)
+## 🔬 بخش چهارم: جزئیات تحلیلی تمرین جلسه پنجم (یادگیری ماشین، تله دقت و نوت‌بوک Lab 4)
 
-### ۱. ارزیابی اولیه مدل‌ها با ویژگی‌های خام (نمایش تله دقت)
-در این آزمایش با ویژگی‌های خام $p_1, p_2, p_3$، عملکرد مدل‌ها روی داده آزمون ($30\%$) به شرح زیر است:
-- **مدل پایه (Dummy Baseline - همواره پیش‌بینی برد):** دقت $0.877$، ضریب Recall برابر $0.000$
-- **مدل k-NN دستی و آماده ($k=3$):** دقت $0.760$، ضریب Recall برابر $0.000$ (بدتر از Baseline!)
-- **مدل درخت تصمیم (Decision Tree):** دقت $0.734$، ضریب Recall برابر $0.000$
-- **ماتریس درهم‌ریختگی مدل k-NN دستی:**  
-  $\text{TP}=0 \quad | \quad \text{FP}=14 \quad | \quad \text{FN}=18 \quad | \quad \text{TN}=122$  
-  *(مدل حتی یک وضعیت بازنده واقعی را هم پیدا نکرده است؛ این مسئله تله دقت را اثبات می‌کند).*
+### ۱. ارزیابی اولیه مدل‌ها با ویژگی‌های خام (نمایش تجربی تله دقت)
+در این آزمایش با ویژگی‌های خام $p_1, p_2, p_3$، عملکرد مدل‌ها روی داده آزمون ($30\%$) به شرح زیر ثبت گردید:
+- **مدل پایه (Dummy Baseline - همواره پیش‌بینی برد):** دقت $0.877$، ضریب Recall برابر $0.000$[cite: 2]
+- **مدل k-NN دستی و آماده ($k=3$):** دقت $0.760$، ضریب Recall برابر $0.000$ (عملکردی ضعیف‌تر از Baseline!)[cite: 2]
+- **مدل درخت تصمیم (Decision Tree):** دقت $0.734$، ضریب Recall برابر $0.000$[cite: 2]
+- **ماتریس درهم‌ریختگی مدل k-NN دستی روی داده آزمون:**  
+  $$\text{TP}=0 \quad | \quad \text{FP}=14 \quad | \quad \text{FN}=18 \quad | \quad \text{TN}=122$$  
+  *(مدل به دلیل توزیع نامتوازن، حتی موفق به شناسایی یک نمونه از وضعیت‌های بازنده واقعی نشده است که نماد بارز تله دقت است)*[cite: 2].
 
 ---
 
@@ -295,7 +460,7 @@
   </tbody>
 </table>
 
-- **تفسیر نمودار بیش‌برازش:** با افزایش عمق به ۱۰، دقت روی داده آموزش تا **۹۴.۷٪** بالا می‌رود، اما دقت آزمون با روندی نزولی تا **۷۴.۰٪** سقوط می‌کند و ضریب Recall در تمامی عمق‌ها روی **۰.۰** باقی می‌ماند. این پدیده اثبات می‌کند که درخت تصمیم در غیاب ویژگی مناسب، تنها داده‌های آموزشی را حفظ می‌کند و قادر به تعمیم الگوی باخت نیست.
+- **تفسیر نمودار بیش‌برازش:** با افزایش عمق به ۱۰، دقت روی داده آموزش تا **۹۴.۷٪** بالا می‌رود، اما دقت آزمون با روندی نزولی تا **۷۴.۰٪** سقوط می‌کند و ضریب Recall در تمامی عمق‌ها روی **۰.۰** باقی می‌ماند[cite: 10]. این پدیده اثبات می‌کند که درخت تصمیم در غیاب ویژگی مناسب، تنها داده‌های آموزشی را حفظ می‌کند و قادر به تعمیم الگوی باخت نیست[cite: 2].
 
 ---
 
