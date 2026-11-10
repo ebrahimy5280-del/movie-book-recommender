@@ -51,23 +51,97 @@ $$b_u = \frac{\sum_{i \in I_u} (r_{u,i} - \mu)}{\lambda_1 + \vert{}I_u\vert{}}, 
 
 ## 📊 ۴. ماتریس هدف‌گذاری مقایسه مدل‌ها در گام چهارم
 
-| نوع مدل | نام مدل / الگوریتم | شاخص RMSE (هدف) | شاخص MAE (هدف) | Precision@10 | Recall@10 | وضعیت در گام چهارم |
-| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
-| **Baseline 0** | Global Mean Dummy | ~ ۱.۷۶ | ~ ۱.۴۰ | ۰.۰۴ | ۰.۰۲ | طراحی و فرمول‌بندی شد |
-| **Baseline 1** | User-Item Biases | < ۱.۱۵ | < ۰.۸۵ | ۰.۱۲ | ۰.۰۸ | طراحی و فرمول‌بندی شد |
-| **Baseline 2** | Popularity Top-K | نامربوط | نامربوط | ۰.۱۸ | ۰.۱۱ | استراتژی شروع سرد |
-| **Collaborative** | User-Based k-NN | < ۰.۹۸ | < ۰.۷۲ | > ۰.۲۴ | > ۰.۱۷ | تحویل به بخش پیاده‌سازی |
-| **Collaborative** | Item-Based k-NN | < ۰.۹۴ | < ۰.۶۹ | > ۰.۲۶ | > ۰.۱۹ | تحویل به بخش پیاده‌سازی |
+<table dir="rtl" style="width: 100%; text-align: right;">
+  <thead>
+    <tr>
+      <th style="text-align: right;">نوع مدل</th>
+      <th style="text-align: right;">نام مدل / الگوریتم</th>
+      <th style="text-align: right;">شاخص RMSE (هدف)</th>
+      <th style="text-align: right;">شاخص MAE (هدف)</th>
+      <th style="text-align: right;">Precision@10</th>
+      <th style="text-align: right;">Recall@10</th>
+      <th style="text-align: right;">وضعیت در گام چهارم</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right;"><b>Baseline 0</b></td>
+      <td style="text-align: right;">Global Mean Dummy</td>
+      <td style="text-align: right;">~ ۱.۷۶</td>
+      <td style="text-align: right;">~ ۱.۴۰</td>
+      <td style="text-align: right;">۰.۰۴</td>
+      <td style="text-align: right;">۰.۰۲</td>
+      <td style="text-align: right;">طراحی و فرمول‌بندی شد</td>
+    </tr>
+    <tr>
+      <td style="text-align: right;"><b>Baseline 1</b></td>
+      <td style="text-align: right;">User-Item Biases</td>
+      <td style="text-align: right;">< ۱.۱۵</td>
+      <td style="text-align: right;">< ۰.۸۵</td>
+      <td style="text-align: right;">۰.۱۲</td>
+      <td style="text-align: right;">۰.۰۸</td>
+      <td style="text-align: right;">طراحی و فرمول‌بندی شد</td>
+    </tr>
+    <tr>
+      <td style="text-align: right;"><b>Baseline 2</b></td>
+      <td style="text-align: right;">Popularity Top-K</td>
+      <td style="text-align: right;">نامربوط</td>
+      <td style="text-align: right;">نامربوط</td>
+      <td style="text-align: right;">۰.۱۸</td>
+      <td style="text-align: right;">۰.۱۱</td>
+      <td style="text-align: right;">استراتژی شروع سرد</td>
+    </tr>
+    <tr>
+      <td style="text-align: right;"><b>Collaborative</b></td>
+      <td style="text-align: right;">User-Based k-NN</td>
+      <td style="text-align: right;">< ۰.۹۸</td>
+      <td style="text-align: right;">< ۰.۷۲</td>
+      <td style="text-align: right;">> ۰.۲۴</td>
+      <td style="text-align: right;">> ۰.۱۷</td>
+      <td style="text-align: right;">تحویل به بخش پیاده‌سازی</td>
+    </tr>
+    <tr>
+      <td style="text-align: right;"><b>Collaborative</b></td>
+      <td style="text-align: right;">Item-Based k-NN</td>
+      <td style="text-align: right;">< ۰.۹۴</td>
+      <td style="text-align: right;">< ۰.۶۹</td>
+      <td style="text-align: right;">> ۰.۲۶</td>
+      <td style="text-align: right;">> ۰.۱۹</td>
+      <td style="text-align: right;">تحویل به بخش پیاده‌سازی</td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
 ## 💡 ۵. تصمیمات مهندسی اتخاذشده در فاز طراحی
 
-| مشاهده تحلیلی (Observation) | ریشه آماری (Reason) | تصمیم مهندسی طراح (Conclusion) |
-| :--- | :--- | :--- |
-| **چولگی مثبت شدید در توزیع نمرات** | کاربران عمدتاً آثاری را امتیازدهی می‌کنند که از آن رضایت داشته‌اند. | الزام استفاده از مرکززدایی میانگین کاربر (`Mean-Centering`) در پیش‌بینی نمرات. |
-| **توزیع دم‌بلند تعاملات اقلام** | تعداد معدودی از عناوین، بخش اعظم بازخوردها را دریافت کرده‌اند. | افزودن پارامتر منقبض‌کننده $\lambda_2$ در محاسبه انحراف کتاب‌ها برای کنترل اقلام کم‌تعامل. |
-| **ناکافی بودن معیار Accuracy** | نرخ عدم تعادل بالا بین کلاس‌های بازخورد صریح. | به‌کارگیری توأمان معیارهای RMSE، Recall@K و NDCG@K در ارزیابی سیستم. |
+<table dir="rtl" style="width: 100%; text-align: right;">
+  <thead>
+    <tr>
+      <th style="text-align: right;">مشاهده تحلیلی (Observation)</th>
+      <th style="text-align: right;">ریشه آماری (Reason)</th>
+      <th style="text-align: right;">تصمیم مهندسی طراح (Conclusion)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right;"><b>چولگی مثبت شدید در توزیع نمرات</b></td>
+      <td style="text-align: right;">کاربران عمدتاً آثاری را امتیازدهی می‌کنند که از آن رضایت داشته‌اند.</td>
+      <td style="text-align: right;">الزام استفاده از مرکززدایی میانگین کاربر (<code>Mean-Centering</code>) در پیش‌بینی نمرات.</td>
+    </tr>
+    <tr>
+      <td style="text-align: right;"><b>توزیع دم‌بلند تعاملات اقلام</b></td>
+      <td style="text-align: right;">تعداد معدودی از عناوین، بخش اعظم بازخوردها را دریافت کرده‌اند.</td>
+      <td style="text-align: right;">افزودن پارامتر منقبض‌کننده $\lambda_2$ در محاسبه انحراف کتاب‌ها برای کنترل اقلام کم‌تعامل.</td>
+    </tr>
+    <tr>
+      <td style="text-align: right;"><b>ناکافی بودن معیار Accuracy</b></td>
+      <td style="text-align: right;">نرخ عدم تعادل بالا بین کلاس‌های بازخورد صریح.</td>
+      <td style="text-align: right;">به‌کارگیری توأمان معیارهای RMSE، Recall@K و NDCG@K در ارزیابی سیستم.</td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
